@@ -1,2 +1,2 @@
 # AXLCoin
-AXL Coin Source Repository
+AXL Coin Dapps Source Repository
