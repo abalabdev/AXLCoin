@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<title>ABA LAB</title>
+    
+<link rel="stylesheet" type="text/css" href="styles/style.css">
+<link rel="stylesheet" type="text/css" href="styles/skin.css">
+<link rel="stylesheet" type="text/css" href="styles/framework.css">
+<link rel="stylesheet" type="text/css" href="styles/ionicons.min.css">
+    
+<script type="text/javascript" src="scripts/jquery.js"></script>
+<script type="text/javascript" src="scripts/plugins.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
+</head>
+
+<body>
+<div id="page-transitions">
+	<div class="sidebars sidebars-light">
+		<div class="sidebar sidebar-left">
+			<div class="sidebar-header sidebar-header-image bg-2">
+				
+				<a href="index.html" class="sidebar-logo">
+					<strong>BlockChain Research Lab.</strong>
+				</a>
+			</div>
+
+			<div class="menu-options icon-background no-submenu-numbers sidebar-menu">
+				<em class="menu-divider">Navigation</em>
+
+				<a class="active-item" href="main.html"><i class="icon-bg bg-blue-dark ion-android-home"></i>
+				<span>HOME</span><i class="ion-record"></i></a>
+
+				<a class="active-item" href="pg_info.html"><i class="icon-bg bg-red-dark ion-ios-list-outline"></i>
+				<span>내 ABA</span><i class="ion-record"></i></a>
+
+				<a class="active-item" href="pg_ent.html"><i class="icon-bg bg-orange-dark ion-music-note"></i>
+				<span>엔터테인먼트</span><i class="ion-record"></i></a>
+
+				<a class="active-item" href="pg_stage.html"><i class="icon-bg bg-orange-dark ion-android-microphone"></i>
+				<span>공연</span><i class="ion-record"></i></a>
+
+				<a class="active-item" href="pg_movie.html"><i class="icon-bg bg-orange-dark ion-android-film"></i>
+				<span>영화</span><i class="ion-record"></i></a>
+
+				<a class="active-item" href="pg_partner.html"><i class="icon-bg bg-orange-dark ion-android-contacts"></i>
+				<span>파트너</span><i class="ion-record"></i></a>
+
+				<a class="active-item" href="pg_shop.html"><i class="icon-bg bg-orange-dark ion-android-cart"></i>
+				<span>기프트콘 구매</span><i class="ion-record"></i></a>
+
+				<a class="active-item" href="pg_soon.html"><i class="icon-bg bg-night-dark ion-android-plane"></i>
+				<span>숙박,여행</span><i class="ion-record"></i></a>
+
+				<a class="active-item" href="pg_soon.html"><i class="icon-bg bg-night-dark ion-social-bitcoin"></i>
+				<span>거래소</span><i class="ion-record"></i></a>
+
+
+			</div>
+		</div> 
+
+	</div>
+	
+	<div class="header header-logo-center header-dark">
+		<a href="#" class="header-icon header-icon-1 hamburger-animated open-sidebar-left"></a>
+		<a href="index.html" class="header-logo"></a>
+
+		<span class="highlight-dark" style="background-color:transparent;position: absolute;top: 1px;right: 11px;line-height: 55px;font-size: 15px;color: #171616;width:99px;"><img data-original="images/icon_coin.png" alt="img" class="preload-image" src="images/empty.png" style="width:20px;height: 20px;display: inline;top:17px;left:-2px;float:left;"> <span id="usermoney"></span></i></span>
+	</div>
+
+	
+	<div id="page-content" class="page-content">	
+		<div id="page-content-scroll" class="header-clear"><!--Enables this element to be scrolled --> 
+
+			<div class="decoration decoration-margins"></div>
+
+			<div class="card-large-layout-page">
+				<div class="card-large-layout">
+					<div>
+						<img class="responsive-image preload-image" data-original="images/pictures/partner1.jpg" alt="img" src="images/empty.png">
+						<!--<strong>PARTNER</strong>
+						<em><u>AA ENTERTAINMENT</u> <u></u></em>-->
+					</div>
+					<p>
+						AA ENTERTAINMENT
+					</p>
+					<div class="clear"></div>
+				</div>            
+			</div>
+
+
+			<div class="card-large-layout-page">
+				<div class="card-large-layout">
+					<div>
+						<img class="responsive-image preload-image" data-original="images/pictures/partner2.jpg" alt="img" src="images/empty.png">
+						<!--<strong>PARTNER</strong>
+						<em><u>AWAKE ENTERTAINMENT</u> <u></u></em>-->
+					</div>
+					<p>
+						AWAKE ENTERTAINMENT
+					</p>
+					<div class="clear"></div>
+				</div>            
+			</div>
+
+
+			<div class="content">
+				<div class="decoration"></div>
+				<a href="#" class="load-more-large-cards button button-full button-green full-bottom">Load More</a>
+			</div>      
+
+			<div class="decoration decoration-margins"></div>
+			
+			<div class="footer footer-dark">
+				<a href="index.html" class="footer-logo"></a>
+				<p class="footer-text">
+					ABA 블록체인 연구소는 연예 기획사 AA ENTERTAINMENT,
+					공연 기획사 Awake의 자회사로 블록체인 기반 엔터테인먼트 
+					산업 투자,활용하는 기술을 개발하고 있습니다. 
+				</p>
+				<p class="copyright-text">&copy; Copyright <span class="copyright-year"></span>. All rights reserved</p>
+			</div>
+
+		</div>  
+	</div>
+
+	<a href="#" class="back-to-top-badge"><i class="ion-ios-arrow-up"></i></a>
+
+
+    <script type="text/javascript">
+    	var usernum = sessionStorage.getItem('usernum');
+    $(document).ready(function() {
+    	getMoney();
+    	setInterval(getMoney,30000);
+    });
+
+    function getData(){
+        var url = "http://app.abalab.io/php/json.php";
+        $.getJSON(url, function(result) {
+            console.log(result);
+            $.each(result, function(i, field) {
+                var id = field.id;
+                var title = field.title;
+                var duration = field.duration;
+                var price = field.price;
+                $("#listview").html("<a class='item' href='form.html?id=" + id + "&title=" + title + "&duration=" + duration + "&price=" + price + "'><span class='item-note'>$" + price + "</span><h2>" + title + " </h2><p>" + duration + "</p></a>");
+            });
+        });
+		}        
+
+		function getMoney(){
+			var dataString="snum="+usernum+"&getmoney=1";
+			$.ajax({
+			type: "POST",
+			url: "http://app.abalab.io/php/getmoney.php",
+			data: dataString,
+			dataType: "json",
+			crossDomain: true,
+			cache: false,
+		success: function(data){
+			console.log(data);
+			if(data.result=="success")
+			{
+				$("#usermoney").html(data.money);	
+			}
+			else
+			{
+	
+			}
+		 }
+		});
+		}
+    </script>
+
+
+</div>
+</body>
