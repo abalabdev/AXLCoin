@@ -43,7 +43,9 @@ import (
 )
 
 const (
-	softResponseLimit = 2 * 1024 * 1024 // Target maximum size of returned blocks, headers or node data.
+	// softResponseLimit = 2 * 1024 * 1024 // Target maximum size of returned blocks, headers or node data.
+	// Response Limit fix - kimssto.
+	softResponseLimit = 1 * 1024 * 1024 // Target maximum size of returned blocks, headers or node data.
 	estHeaderRlpSize  = 500             // Approximate size of an RLP encoded block header
 
 	// txChanSize is the size of channel listening to NewTxsEvent.
