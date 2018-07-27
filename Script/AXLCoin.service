@@ -1,0 +1,10 @@
+[Unit]
+Description=AXL Coin Go client
+
+[Service]
+Type=simple
+ExecStart=/root/work/AXLCoin/Core/Geth-1.8.11/build/bin/geth 2>%h/.ethereum/AXLCoin.log
+
+[Install]
+WantedBy=default.target
+
