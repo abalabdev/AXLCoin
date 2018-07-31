@@ -314,7 +314,9 @@ var (
 	big9          = big.NewInt(9)
 	big10         = big.NewInt(10)
 	bigMinus99    = big.NewInt(-99)
-	big2999999    = big.NewInt(2999999)
+	// big2999999    = big.NewInt(2999999)
+	// Modify Diffculty value. - kimssto
+	big1999999    = big.NewInt(1999999)
 )
 
 // calcDifficultyByzantium is the difficulty adjustment algorithm. It returns
@@ -359,9 +361,16 @@ func calcDifficultyByzantium(time uint64, parent *types.Header) *big.Int {
 	//   https://github.com/ethereum/EIPs/pull/669
 	//   fake_block_number = min(0, block.number - 3_000_000
 	fakeBlockNumber := new(big.Int)
+	/*
 	if parent.Number.Cmp(big2999999) >= 0 {
 		fakeBlockNumber = fakeBlockNumber.Sub(parent.Number, big2999999) // Note, parent is 1 less than the actual block number
 	}
+	*/
+	// Modify Diffculty value. - kimssto
+	if parent.Number.Cmp(big1999999) >= 0 {
+		fakeBlockNumber = fakeBlockNumber.Sub(parent.Number, big1999999) // Note, parent is 1 less than the actual block number
+	}
+
 	// for the exponential factor
 	periodCount := fakeBlockNumber
 	periodCount.Div(periodCount, expDiffPeriod)
