@@ -1,5 +1,7 @@
 pragma solidity ^0.4.16;
 
+import 'openzeppelin-solidity/contracts/math/SafeMath.sol';
+
 contract owned {
     address public owner;
 
@@ -269,3 +271,11 @@ contract AXLToken is owned, TokenERC20 {
     
 }
 
+function lock(uint256 _for,uint256 _amount,uint256 _time)
+{
+	uint256 validUntil=block.timestamp.add(_time);
+	require(_amount <= transferableBalanceOf(msg.sender));
+	require(_for<locked_for);
+	locked[msg.sender][_for].push(lockToken(_amount,validUntil));
+	Lock(msg.sender,_for,_amount,validUntil);
+}
