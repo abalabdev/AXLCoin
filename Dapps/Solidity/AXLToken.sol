@@ -25,7 +25,8 @@ contract TokenERC20 {
     // Public variables of the token
     string public name;
     string public symbol;
-    uint8 public decimals = 18;
+    // uint8 public decimals = 18;
+    uint8 public decimals = 4;
     // 18 decimals is the strongly suggested default, avoid changing it
     uint256 public totalSupply;
 
@@ -175,13 +176,30 @@ contract TokenERC20 {
 /*        AXLTOKEN STARTS HERE       */
 /******************************************/
 
-// contract MyAdvancedToken is owned, TokenERC20 {
 contract AXLToken is owned, TokenERC20 {
+    using SafeMath for uint256;
 
     uint256 public sellPrice;
     uint256 public buyPrice;
+    
+    bytes32[] public locked_for;
 
     mapping (address => bool) public frozenAccount;
+    mapping (bytes32 => bool) public locking_active;
+    
+    mapping (address => mapping(bytes32 => lockToken[])) public locked;
+
+    struct lockToken {
+        uint256 amount;
+        uint256 validity;
+    }
+
+    event Lock(
+        address indexed _of,
+        bytes32 indexed _for,
+        uint256 _amount,
+        uint256 _validity
+    );
 
     /* This generates a public event on the blockchain that will notify clients */
     event FrozenFunds(address target, bool frozen);
@@ -192,7 +210,17 @@ contract AXLToken is owned, TokenERC20 {
         uint256 initialSupply,
         string tokenName,
         string tokenSymbol
-    ) TokenERC20(initialSupply, tokenName, tokenSymbol) public {}
+   ) TokenERC20(initialSupply, tokenName, tokenSymbol) public {
+    	initialSupply = 128000000;
+    	tokenName = "AXL Coin";
+    	tokenSymbol = "AXL";
+        //Utility - Claims Assesssment
+        locked_for.push("CA");
+        locking_active["CA"]=true;
+        //Utility  - Governance
+        locked_for.push("GOV");
+        locking_active["GOV"]=true;
+    }
 
     /* Internal transfer, only can be called by this contract */
     function _transfer(address _from, address _to, uint _value) internal {
@@ -268,14 +296,55 @@ contract AXLToken is owned, TokenERC20 {
         timeOfLastProof = now; // Reset the counter
         currentChallenge = keccak256(nonce, currentChallenge, block.blockhash(block.number - 1));  // Save a hash that will be used as the next proof
     }
-    
-}
 
-function lock(uint256 _for,uint256 _amount,uint256 _time)
-{
-	uint256 validUntil=block.timestamp.add(_time);
-	require(_amount <= transferableBalanceOf(msg.sender));
-	require(_for<locked_for);
-	locked[msg.sender][_for].push(lockToken(_amount,validUntil));
-	Lock(msg.sender,_for,_amount,validUntil);
+    function tokensLocked(address _of, bytes32 _for, uint256 _time)
+        public
+        view
+        returns (uint256 amount)
+    {
+        for(uint256 i=0;i<locked[_of][_for].length;i++)
+        {
+            if(locked[_of][_for][i].validity > _time)
+                amount+=locked[_of][_for][i].amount;
+        }
+    }
+
+    function transferableBalanceOf(address _of)
+        public
+        view
+        returns (uint256 amount)
+    {
+        uint256 lockedAmount = 0;
+        for (uint256 i=0; i < locked_for.length; i++) {
+            lockedAmount += tokensLocked(_of,locked_for[i], block.timestamp);
+        }
+        // amount = balances[_of].sub(lockedAmount);
+        amount = balanceOf[msg.sender].sub(lockedAmount);
+    }
+
+    /**
+     * @dev Locks a specified amount of tokens against an address,
+     *      for a specified purpose and time
+     * @param _for The purpose to lock tokens
+     * @param _amount Number of tokens to be locked
+     * @param _time Lock time in seconds
+     */
+ 
+	// function lock(uint256 _for,uint256 _amount,uint256 _time) public {
+	function lock(bytes32 _for,uint256 _amount,uint256 _time) public {
+		/*
+		uint256 validUntil=block.timestamp.add(_time);
+		require(_amount <= transferableBalanceOf(msg.sender));
+		require(_for < locked_for);
+		locked[msg.sender][_for].push(lockToken(_amount,validUntil));
+		Lock(msg.sender,_for,_amount,validUntil);
+		*/
+		
+        uint256 validUntil=block.timestamp.add(_time);
+        require(_amount <= transferableBalanceOf(msg.sender));
+        require(locking_active[_for]);
+        locked[msg.sender][_for].push(lockToken(_amount, validUntil));
+        emit Lock(msg.sender, _for, _amount, validUntil);
+ 
+	}
 }

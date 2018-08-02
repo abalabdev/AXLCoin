@@ -1,8 +1,7 @@
 pragma solidity ^0.4.24;
 
-
+// import 'github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/SafeMath.sol';
 import 'openzeppelin-solidity/contracts/math/SafeMath.sol';
-
 
 contract LockableToken {
     using SafeMath for uint256;
