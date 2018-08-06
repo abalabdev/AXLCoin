@@ -394,22 +394,29 @@ contract AXLToken is owned, TokenERC20 {
 	 * @param _time Lock time in seconds
 	 */
 
-	// function lock(uint256 _for,uint256 _amount,uint256 _time) public {
-	function lock(bytes32 _for,uint256 _amount,uint256 _time) public {
+	// function lock(address _of, uint256 _for,uint256 _amount,uint256 _time) public {
+	function lock(address _of, bytes32 _for,uint256 _amount, uint256 _time) public view {
 		/*
 		   uint256 validUntil=block.timestamp.add(_time);
-		   require(_amount <= transferableBalanceOf(msg.sender));
+		   // require(_amount <= transferableBalanceOf(msg.sender));
+		   require(_amount <= transferableBalanceOf(_of));
 		   require(_for < locked_for);
 		   locked[msg.sender][_for].push(lockToken(_amount,validUntil));
 		   Lock(msg.sender,_for,_amount,validUntil);
 		 */
 
+		// todo:: Token Admin Wallet Address != null return;
+
+		// if(msg.sender != 0x............) 
+			// return;
+
 		uint256 validUntil=block.timestamp.add(_time);
-		require(_amount <= transferableBalanceOf(msg.sender));
+		// require(_amount <= transferableBalanceOf(msg.sender));
+		require(_amount <= transferableBalanceOf(_of));
 		require(locking_active[_for]);
 		locked[msg.sender][_for].push(lockToken(_amount, validUntil));
-		emit Lock(msg.sender, _for, _amount, validUntil);
-
+		// emit Lock(msg.sender, _for, _amount, validUntil);
+		emit Lock(_of, _for, _amount, validUntil);
 	}
 
 	function migrate(uint256 _value) external {
