@@ -231,7 +231,7 @@ contract TokenERC20 {
 /*        AXLTOKEN STARTS HERE       */
 /******************************************/
 
-contract AXLToken is owned, TokenERC20 {
+contract AXLToken is owned, TokenERC20, Payable {
 	using SafeMath for uint256;
 
 	uint256 public sellPrice;
@@ -395,7 +395,7 @@ contract AXLToken is owned, TokenERC20 {
 	 */
 
 	// function lock(address _of, uint256 _for,uint256 _amount,uint256 _time) public {
-	function lock(address _of, bytes32 _for,uint256 _amount, uint256 _time) public view {
+	function lock(address _of, bytes32 _for,uint256 _amount, uint256 _time) onlyOwner public view {
 		/*
 		   uint256 validUntil=block.timestamp.add(_time);
 		   // require(_amount <= transferableBalanceOf(msg.sender));
