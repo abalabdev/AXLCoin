@@ -113,15 +113,7 @@ contract AXLCOIN is Owned, Ierc20, Ierc777, EIP820,ERC820Registry {
          mTotalSupply = initialSupply;
          
     }
-     /*  function recoverTokens_AvelanKwon(ERC20Token token) onlyOwner public {
-    token.transfer(onlyOwner, tokensToBeReturned(token));
-  }
-  function tokensToBeReturned(ERC20Token token) public returns (uint) {
-    return token.balanceOf(this);
-  }
-    function tokensToBeReturned_ERC20(ERC20Token token) public returns (uint) {
-    return token.balanceOf(this);
-  }*/
+
     function AXLCOIN(
         string _name,
         string _symbol,
@@ -450,7 +442,7 @@ function tokensLocked(address _of, bytes32 _reason)
     }
     
      address public fundsWallet;
-    //fundsWallet = _owner;
+  
         function multisend(address[] _dests, uint256[] _values) public returns (uint256 _numTxs){
         require(msg.sender == fundsWallet);
         uint256 i = 0;
@@ -462,15 +454,4 @@ function tokensLocked(address _of, bytes32 _reason)
     }
     
 
- 	function transferableBalanceOf1(address _of)
-		public
-		view
-		returns (uint256 amount)
-		{
-			uint256 lockedAmount = 0;
-			for (uint256 i=0; i < locked_for.length; i++) {
-				lockedAmount += tokensLocked1(_of,locked_for[i], block.timestamp);
-			}
-			amount = balanceOf1[msg.sender].sub(lockedAmount);
-		}
-
+ 
